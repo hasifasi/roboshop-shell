@@ -27,4 +27,4 @@ systemctl restart catalogue
 
 dnf install mongodb-mongosh -y
 
-mongosh --host 172.31.26.200 <app/db/master-data.js
+mongosh --host 172.31.26.200 </app/db/master-data.js
