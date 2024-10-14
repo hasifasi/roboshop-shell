@@ -1,16 +1,16 @@
 
 
 print_heading "Install MySQL Server"
-dnf install mysql-server -y
+dnf install mysql-server -y &>>$logFile
 statusCheck $?
 
 print_heading "Start MySQL Service"
-systemctl enable mysqld &>>$log_file
-systemctl start mysqld &>>$log_file
+systemctl enable mysqld &>>$logFile
+systemctl start mysqld &>>$logFile
 statusCheck $?
 
 print_heading "Setup MySQL Password"
-mysql_secure_installation --set-root-pass RoboShop@1 &>>$log_file
+mysql_secure_installation --set-root-pass RoboShop@1 &>>$logFile
 statusCheck $?
 
 #source common.sh

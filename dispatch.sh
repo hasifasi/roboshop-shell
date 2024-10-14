@@ -1,9 +1,13 @@
 source common.sh
 appName=dispatch
 
+printHeading "Copy Dispatch Service file"
+cp dispatch.service  /etc/systemd/system/dispatch.service &>>$logFile
+statusCheck $?
 
-cp dispatch.service  /etc/systemd/system/dispatch.service
-dnf install golang -y
+printHeading  "Install GoLang"
+dnf install golang -y &>>$logFile
+statusCheck $?
 
 #useradd roboshop
 #
@@ -16,12 +20,15 @@ dnf install golang -y
 
 addPrerequisites
 
-
+printHeading "Copy Download Application Dependencies"
 cd /app
-go mod init dispatch
-go get
-go build
+go mod init dispatch &>>$logFile
+go get &>>$logFile
+go build &>>$logFile
+statusCheck $?
 
-systemctl daemon-reload
-systemctl enable dispatch
-systemctl restart dispatch
+printHeading "Start Application Service"
+systemctl daemon-reload &>>$logFile
+systemctl enable dispatch &>>$logFile
+systemctl restart dispatch &>>$logFile
+statusCheck $?
