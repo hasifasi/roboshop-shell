@@ -29,7 +29,7 @@ dnf install nodejs -y
 #echo -e "$color Unzip Dev code in tmp $noColor"
 #unzip /tmp/catalogue.zip
 #**********************
-addPrerequisites()
+addPrerequisites
 
 echo -e "$color Install the dev code $noColor"
 npm install
