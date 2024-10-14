@@ -1,5 +1,4 @@
-color="\e[33m"
-noColor="\e[0m"
+source common.sh
 
 
 echo -e "$color check and install nginx $noColor"
