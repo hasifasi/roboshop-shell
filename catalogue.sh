@@ -30,13 +30,14 @@ npm install
 
 
 
-
+echo -e "$color Restart the server $noColor"
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl restart catalogue
 
 
-
+echo -e "$color Install Mongodb  $noColor"
 dnf install mongodb-mongosh -y
 
+echo -e "$color Connect Catalogue and Mongodb $noColor"
 mongosh --host 172.31.26.200 </app/db/master-data.js
