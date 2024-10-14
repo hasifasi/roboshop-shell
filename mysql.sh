@@ -1,4 +1,5 @@
-
+source common.sh
+appName=mysql
 
 printHeading "Install MySQL Server"
 dnf install mysql-server -y &>>$logFile
