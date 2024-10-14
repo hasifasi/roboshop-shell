@@ -10,14 +10,17 @@ printHeading " Copy the mongo repo "
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$logFile
 statusCheck $?
 
-printHeading " Enable nodejs version 20 "
-dnf module disable nodejs -y &>>$logFile
-dnf module enable nodejs:20 -y &>>$logFile
-statusCheck $?
 
-printHeading " Install nodejs "
-dnf install nodejs -y &>>$logFile
-statusCheck $?
+nodejsSetup
+#=======================nodejsSetup function replaced the below code==========
+#printHeading " Enable nodejs version 20 "
+#dnf module disable nodejs -y &>>$logFile
+#dnf module enable nodejs:20 -y &>>$logFile
+#statusCheck $?
+#
+#printHeading " Install nodejs "
+#dnf install nodejs -y &>>$logFile
+#statusCheck $?
 
 #*********************
 #This Code is now replaced with a funcion called --> addPrerequisites()
@@ -35,15 +38,15 @@ statusCheck $?
 #printHeading " Unzip Dev code in tmp "
 #unzip /tmp/catalogue.zip
 #**********************
-addPrerequisites
-
-
-printHeading " Install the dev code "
-npm install &>>$logFile
-statusCheck $?
-
-
-systemSetup
+#addPrerequisites
+#
+#
+#printHeading " Install the dev code "
+#npm install &>>$logFile
+#statusCheck $?
+#
+#
+#systemSetup
 #******It is added to systemSetup function in common.sh
 #printHeading " Restart the server "
 #systemctl daemon-reload &>>$logFile
@@ -51,11 +54,15 @@ systemSetup
 #systemctl restart catalogue &>>$logFile
 #statusCheck $?
 #**************************
-
+#=========================================================
 printHeading " Install Mongodb  "
 dnf install mongodb-mongosh -y &>>$logFile
 statusCheck $?
 
 printHeading " Connect Catalogue and Mongodb "
-mongosh --host 172.31.26.200 </app/db/master-data.js &>>$logFile
+mongosh --host mongodb.waferhassan.online </app/db/master-data.js &>>$logFile
 statusCheck $?
+
+print_heading "Restart Catalogue Service"
+systemctl restart catalogue &>>$logFile
+status_check $?

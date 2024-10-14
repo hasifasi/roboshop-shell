@@ -63,3 +63,25 @@ systemSetup(){
   statusCheck $?
 
 }
+
+nodejsSetup(){
+
+  printHeading " Disable n Enable nodejs version 20 "
+  dnf module disable nodejs -y &>>$logFile
+  dnf module enable nodejs:20 -y &>>$logFile
+  statusCheck $?
+
+  printHeading " Install nodejs "
+  dnf install nodejs -y &>>$logFile
+  statusCheck $?
+
+  addPrerequisites
+
+
+  printHeading " Install the dev code "
+  npm install &>>$logFile
+  statusCheck $?
+
+
+  systemSetup
+}
