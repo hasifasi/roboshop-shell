@@ -21,7 +21,7 @@ mkdir /app
 
 echo -e "$color Download Dev code $noColor"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
-
+cd /app
 echo -e "$color Unzip Dev code in tmp $noColor"
 unzip /tmp/catalogue.zip
 
