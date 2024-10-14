@@ -25,10 +25,12 @@ systemctl enable shipping
 systemctl restart shipping
 
 dnf install mysql -y
-mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/schema.sql
 
-mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/app-user.sql
-
-mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/master-data.sql
+for sql_file in schema app-user master-data; do
+mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/$sql_file.sql
+done
+#mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/app-user.sql
+#
+#mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/master-data.sql
 
 systemctl restart shipping

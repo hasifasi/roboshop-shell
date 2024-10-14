@@ -6,6 +6,7 @@ color="\e[36m"
 noColor="\e[0m"
 logFile=/tmp/roboshop.log   # Creating a variable to store all logs
 rm -f $logFile              # Remove the file before every new run
+scriptsPath= $(pwd)
 
 
 #Function to add user and create directory and Download Dev code to tmp and Unzip the same
@@ -46,4 +47,16 @@ statusCheck(){
     echo -e "\e[32m FAILURE \e[0m"
     exit 1
   fi
+}
+
+systemSetup(){
+
+  printHeading "Copy the Service files"
+  cp $scriptsPath/$appName.service /etc/systemd/system/$appName.service &>>$logFile
+
+  printHeading "System reload enable and restart"
+  systemctl daemon-reload &>>$logFile
+  systemctl enable $appName &>>$logFile
+  systemctl restart $appName &>>$logFile
+
 }

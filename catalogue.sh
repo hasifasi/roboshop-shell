@@ -1,9 +1,10 @@
 source common.sh
 appName=catalogue
 
-printHeading " Copy the catalogue Service "
-cp catalogue.service /etc/systemd/system/catalogue.service &>>$logFile
-statusCheck $?
+#******It is added to systemSetup function in common.sh
+#printHeading " Copy the catalogue Service "
+#cp catalogue.service /etc/systemd/system/catalogue.service &>>$logFile
+#statusCheck $?
 
 printHeading " Copy the mongo repo "
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$logFile
@@ -42,12 +43,12 @@ npm install &>>$logFile
 statusCheck $?
 
 
-
-printHeading " Restart the server "
-systemctl daemon-reload &>>$logFile
-systemctl enable catalogue &>>$logFile
-systemctl restart catalogue &>>$logFile
-statusCheck $?
+#******It is added to systemSetup function in common.sh
+#printHeading " Restart the server "
+#systemctl daemon-reload &>>$logFile
+#systemctl enable catalogue &>>$logFile
+#systemctl restart catalogue &>>$logFile
+#statusCheck $?
 
 
 printHeading " Install Mongodb  "
