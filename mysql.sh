@@ -1,7 +1,7 @@
 source common.sh
 appName=mysql
 
-if [ -z $MYSQL_ROOT_PASSWORD ]; then
+if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
   echo Input My sql root password is missing &>>$logFile
   exit 1
 fi
