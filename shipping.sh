@@ -1,15 +1,20 @@
+source common.sh
+appName=shipping
+
 cp shipping.service /etc/systemd/system/shipping.service
 
 dnf install maven -y
 
-useradd roboshop
+#useradd roboshop
+#
+#rm -rf /app
+#mkdir /app
+#
+#curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+#cd /app
+#unzip /tmp/shipping.zip
+addPrerequisites
 
-rm -rf /app
-mkdir /app
-
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
-cd /app
-unzip /tmp/shipping.zip
 
 cd /app
 mvn clean package
