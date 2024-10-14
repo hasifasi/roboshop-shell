@@ -12,7 +12,7 @@ rm -f $logFile              # Remove the file before every new run
 addPrerequisites(){
   printHeading "Add App user"
   id roboshop &>>$logFile
-  if [ $1 -ne 0 ]; then
+  if [ $? -ne 0 ]; then
     useradd roboshop &>>$logFile
   fi
   statusCheck $?
