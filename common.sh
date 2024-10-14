@@ -53,10 +53,13 @@ systemSetup(){
 
   printHeading "Copy the Service files"
   cp $scriptsPath/$appName.service /etc/systemd/system/$appName.service &>>$logFile
+  statusCheck $?
+
 
   printHeading "System reload enable and restart"
   systemctl daemon-reload &>>$logFile
   systemctl enable $appName &>>$logFile
   systemctl restart $appName &>>$logFile
+  statusCheck $?
 
 }

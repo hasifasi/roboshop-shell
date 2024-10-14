@@ -43,13 +43,14 @@ npm install &>>$logFile
 statusCheck $?
 
 
+systemSetup
 #******It is added to systemSetup function in common.sh
 #printHeading " Restart the server "
 #systemctl daemon-reload &>>$logFile
 #systemctl enable catalogue &>>$logFile
 #systemctl restart catalogue &>>$logFile
 #statusCheck $?
-
+#**************************
 
 printHeading " Install Mongodb  "
 dnf install mongodb-mongosh -y &>>$logFile
