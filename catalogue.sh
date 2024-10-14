@@ -3,20 +3,20 @@ appName=catalogue
 
 printHeading " Copy the catalogue Service "
 cp catalogue.service /etc/systemd/system/catalogue.service &>>$logFile
-echo $?
+statusCheck $?
 
 printHeading " Copy the mongo repo "
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$logFile
-echo $?
+statusCheck $?
 
 printHeading " Enable nodejs version 20 "
 dnf module disable nodejs -y &>>$logFile
 dnf module enable nodejs:20 -y &>>$logFile
-echo $?
+statusCheck $?
 
 printHeading " Install nodejs "
 dnf install nodejs -y &>>$logFile
-echo $?
+statusCheck $?
 
 #*********************
 #This Code is now replaced with a funcion called --> addPrerequisites()
@@ -39,7 +39,7 @@ addPrerequisites
 
 printHeading " Install the dev code "
 npm install &>>$logFile
-echo $?
+statusCheck $?
 
 
 
@@ -47,13 +47,13 @@ printHeading " Restart the server "
 systemctl daemon-reload &>>$logFile
 systemctl enable catalogue &>>$logFile
 systemctl restart catalogue &>>$logFile
-echo $?
+statusCheck $?
 
 
 printHeading " Install Mongodb  "
 dnf install mongodb-mongosh -y &>>$logFile
-echo $?
+statusCheck $?
 
 printHeading " Connect Catalogue and Mongodb "
 mongosh --host 172.31.26.200 </app/db/master-data.js &>>$logFile
-echo $?
+statusCheck $?

@@ -11,26 +11,39 @@ rm -f $logFile              # Remove the file before every new run
 #Function to add user and create directory and Download Dev code to tmp and Unzip the same
 addPrerequisites(){
   printHeading "Add App user"
-  useradd roboshop &>>$logFile
-  echo $?
+  id roboshop &>>$logFile
+  if [$1 -ne 0 ]; then
+    useradd roboshop &>>$logFile
+  fi
+  statusCheck $?
 
   printHeading "Create App directory"
   rm -rf /app &>>$logFile
   mkdir /app &>>$logFile
-  echo $?
+  statusCheck $?
 
   printHeading "Download Dev code"
   curl -L -o /tmp/$appName.zip https://roboshop-artifacts.s3.amazonaws.com/$appName-v3.zip &>>$logFile
   cd /app
-  echo $?
+  statusCheck $?
 
   printHeading "Unzip Dev code in tmp"
   unzip /tmp/$appName.zip &>>$logFile
-  echo $?
+  statusCheck $?
 
 }
 
+#This function to print header for all the commands and add the colors to it
 printHeading(){
-  echo -e "$color $1  $noColor" &>>logFile
-  echo -e "$color $1  $noColor"
+  echo -e "$color $1  $noColor" &>>logFile  # adds to logfile
+  echo -e "$color $1  $noColor"             # prints in the cli
+}
+
+statusCheck(){
+  if[ $1 -eq 0]; then
+    echo -e "\e[32m SUCCESS \e[0m"
+  else
+    echo -e "\e[32m FAILURE \e[0m"
+    exit 1
+  fi
 }
