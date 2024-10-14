@@ -10,22 +10,27 @@ rm -f $logFile              # Remove the file before every new run
 
 #Function to add user and create directory and Download Dev code to tmp and Unzip the same
 addPrerequisites(){
-  echo -e "$color Add App user $noColor"
+  printHeading "Add App user"
   useradd roboshop &>>$logFile
   echo $?
 
-  echo -e "$color Create App directory $noColor"
+  printHeading "Create App directory"
   rm -rf /app &>>$logFile
   mkdir /app &>>$logFile
   echo $?
 
-  echo -e "$color Download Dev code $noColor"
+  printHeading "Download Dev code"
   curl -L -o /tmp/$appName.zip https://roboshop-artifacts.s3.amazonaws.com/$appName-v3.zip &>>$logFile
   cd /app
   echo $?
 
-  echo -e "$color Unzip Dev code in tmp $noColor"
+  printHeading "Unzip Dev code in tmp"
   unzip /tmp/$appName.zip &>>$logFile
   echo $?
 
+}
+
+printHeading(){
+  echo -e "$color $1  $noColor" &>>logFile
+  echo -e "$color $1  $noColor"
 }

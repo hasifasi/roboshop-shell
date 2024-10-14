@@ -1,59 +1,59 @@
 source common.sh
 appName=catalogue
 
-echo -e "$color Copy the catalogue Service $noColor"
+printHeading " Copy the catalogue Service "
 cp catalogue.service /etc/systemd/system/catalogue.service &>>$logFile
 echo $?
 
-echo -e "$color Copy the mongo repo $noColor"
+printHeading " Copy the mongo repo "
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$logFile
 echo $?
 
-echo -e "$color Enable nodejs version 20 $noColor"
+printHeading " Enable nodejs version 20 "
 dnf module disable nodejs -y &>>$logFile
 dnf module enable nodejs:20 -y &>>$logFile
 echo $?
 
-echo -e "$color Install nodejs $noColor"
+printHeading " Install nodejs "
 dnf install nodejs -y &>>$logFile
 echo $?
 
 #*********************
 #This Code is now replaced with a funcion called --> addPrerequisites()
-#echo -e "$color Add App user $noColor"
+#printHeading " Add App user "
 
 #useradd roboshop
 #
-#echo -e "$color Create App directory $noColor"
+#printHeading " Create App directory "
 #rm -rf /app
 #mkdir /app
 #
-#echo -e "$color Download Dev code $noColor"
+#printHeading " Download Dev code "
 #curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
 #cd /app
-#echo -e "$color Unzip Dev code in tmp $noColor"
+#printHeading " Unzip Dev code in tmp "
 #unzip /tmp/catalogue.zip
 #**********************
 addPrerequisites
 
 
-echo -e "$color Install the dev code $noColor"
+printHeading " Install the dev code "
 npm install &>>$logFile
 echo $?
 
 
 
-echo -e "$color Restart the server $noColor"
+printHeading " Restart the server "
 systemctl daemon-reload &>>$logFile
 systemctl enable catalogue &>>$logFile
 systemctl restart catalogue &>>$logFile
 echo $?
 
 
-echo -e "$color Install Mongodb  $noColor"
+printHeading " Install Mongodb  "
 dnf install mongodb-mongosh -y &>>$logFile
 echo $?
 
-echo -e "$color Connect Catalogue and Mongodb $noColor"
+printHeading " Connect Catalogue and Mongodb "
 mongosh --host 172.31.26.200 </app/db/master-data.js &>>$logFile
 echo $?
