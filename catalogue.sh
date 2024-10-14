@@ -2,16 +2,21 @@ source common.sh
 appName=catalogue
 
 echo -e "$color Copy the catalogue Service $noColor"
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp catalogue.service /etc/systemd/system/catalogue.service &>>$logFile
+echo $?
+
 echo -e "$color Copy the mongo repo $noColor"
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$logFile
+echo $?
 
 echo -e "$color Enable nodejs version 20 $noColor"
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+dnf module disable nodejs -y &>>$logFile
+dnf module enable nodejs:20 -y &>>$logFile
+echo $?
 
 echo -e "$color Install nodejs $noColor"
-dnf install nodejs -y
+dnf install nodejs -y &>>$logFile
+echo $?
 
 #*********************
 #This Code is now replaced with a funcion called --> addPrerequisites()
@@ -31,19 +36,24 @@ dnf install nodejs -y
 #**********************
 addPrerequisites
 
+
 echo -e "$color Install the dev code $noColor"
-npm install
+npm install &>>$logFile
+echo $?
 
 
 
 echo -e "$color Restart the server $noColor"
-systemctl daemon-reload
-systemctl enable catalogue
-systemctl restart catalogue
+systemctl daemon-reload &>>$logFile
+systemctl enable catalogue &>>$logFile
+systemctl restart catalogue &>>$logFile
+echo $?
 
 
 echo -e "$color Install Mongodb  $noColor"
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>>$logFile
+echo $?
 
 echo -e "$color Connect Catalogue and Mongodb $noColor"
-mongosh --host 172.31.26.200 </app/db/master-data.js
+mongosh --host 172.31.26.200 </app/db/master-data.js &>>$logFile
+echo $?
