@@ -42,6 +42,6 @@ done
 #
 #mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/master-data.sql
 
-print_heading "Restart Shipping Service"
+printHeading "Restart Shipping Service"
 systemctl restart shipping &>>$logFile
 statusCheck $?
