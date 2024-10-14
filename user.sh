@@ -1,27 +1,31 @@
 source common.sh
 appName=user
 
-cp user.service /etc/systemd/system/user.service
 
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+nodejsSetup
 
-dnf install nodejs -y
-
-#useradd roboshop
+#================All the below code is handled in nodejsSetup func==============
+#cp user.service /etc/systemd/system/user.service
 #
-#rm -rf /app
-#mkdir /app
+#dnf module disable nodejs -y
+#dnf module enable nodejs:20 -y
 #
-#curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+#dnf install nodejs -y
+#
+##useradd roboshop
+##
+##rm -rf /app
+##mkdir /app
+##
+##curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+##cd /app
+##unzip /tmp/user.zip
+#addPrerequisites
+#
+#
 #cd /app
-#unzip /tmp/user.zip
-addPrerequisites
-
-
-cd /app
-npm install
-
-systemctl daemon-reload
-systemctl enable user
-systemctl restart user
+#npm install
+#
+#systemctl daemon-reload
+#systemctl enable user
+#systemctl restart user

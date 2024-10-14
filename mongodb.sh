@@ -1,15 +1,20 @@
 source common.sh
+appName=mongodb
 
-echo -e "$color Copy Mongo repo $noColor"
-cp mongo.repo /etc/yum.repos.d/mongodb.repo
+printHeading " Copy Mongo repo "
+cp mongo.repo /etc/yum.repos.d/mongodb.repo &>>$logFile
+statusCheck $?
 
-echo -e "$color Install the Mongodb $noColor"
- dnf install mongodb-org -y
+printHeading " Install the Mongodb "
+ dnf install mongodb-org -y &>>$logFile
+ statusCheck $?
 
-echo -e "$color Modify port to access by any server using sed $noColor"
-sed -i -e 's/127.0.0.1/0.0.0.0/'  /etc/mongod.conf
+printHeading " Modify port to access by any server using sed "
+sed -i -e 's/127.0.0.1/0.0.0.0/'  /etc/mongod.conf &>>$logFile
+statusCheck $?
 
-echo -e "$color Restart Application server $noColor"
- systemctl enable mongod
- systemctl restart mongod
+printHeading " Restart Application server "
+ systemctl enable mongod &>>$logFile
+ systemctl restart mongod &>>$logFile
+ statusCheck $?
 

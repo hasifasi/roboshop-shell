@@ -85,3 +85,36 @@ nodejsSetup(){
 
   systemSetup
 }
+
+pythonSetup(){
+
+  printHeading " Install python "
+  dnf install python3 gcc python3-devel -y  &>>$logFile
+    statusCheck $?
+
+
+  addPrerequisites
+
+  printHeading "Download Application dependencies "
+  pip3 install -r requirements.txt
+    statusCheck $?
+
+ systemSetup
+}
+
+mavenSetup(){
+
+   printHeading "Install Maven"
+   dnf install maven -y  &>>$logFile
+   statusCheck $?
+
+   addPrerequisites
+
+   printHeading "Maven clean and move jar file"
+    cd /app
+    mvn clean package  &>>$logFile
+    mv target/$appName-1.0.jar $appName.jar  &>>$logFile
+    statusCheck $?
+
+   systemSetup
+}
