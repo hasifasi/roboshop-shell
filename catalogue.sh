@@ -63,6 +63,6 @@ printHeading " Connect Catalogue and Mongodb "
 mongosh --host mongodb.waferhassan.online </app/db/master-data.js &>>$logFile
 statusCheck $?
 
-print_heading "Restart Catalogue Service"
+printHeading "Restart Catalogue Service"
 systemctl restart catalogue &>>$logFile
-status_check $?
+statusCheck $?
