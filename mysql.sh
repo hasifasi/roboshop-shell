@@ -1,6 +1,11 @@
 source common.sh
 appName=mysql
 
+if [ -z $MYSQL_ROOT_PASSWORD ]; then
+  echo Input My sql root password is missing &>>$logFile
+  exit 1
+fi
+
 printHeading "Install MySQL Server"
 dnf install mysql-server -y &>>$logFile
 statusCheck $?
@@ -11,8 +16,10 @@ systemctl start mysqld &>>$logFile
 statusCheck $?
 
 printHeading "Setup MySQL Password"
-mysql_secure_installation --set-root-pass RoboShop@1 &>>$logFile
+mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD &>>$logFile
 statusCheck $?
+
+#Password is RoboShop@1
 
 #source common.sh
 #app_name=mysql
