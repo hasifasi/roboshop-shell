@@ -6,7 +6,7 @@ color="\e[36m"
 noColor="\e[0m"
 logFile=/tmp/roboshop.log   # Creating a variable to store all logs
 rm -f $logFile              # Remove the file before every new run
-scriptsPath= $(pwd)
+scriptsPath=$(pwd)
 
 
 #Function to add user and create directory and Download Dev code to tmp and Unzip the same
