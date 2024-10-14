@@ -36,7 +36,7 @@ statusCheck $?
 for sql_file in schema app-user master-data; do
   printHeading "Load SQL File - $sql_file"
   mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/$sql_file.sql
-  statusCheck
+  statusCheck $?
 done
 #mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/app-user.sql
 #
