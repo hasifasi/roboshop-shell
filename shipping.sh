@@ -31,7 +31,7 @@ mavenSetup
 #==================================================================================
 printHeading "Install MySQL Client"
 dnf install mysql -y
-statusCheck
+statusCheck $?
 
 for sql_file in schema app-user master-data; do
   printHeading "Load SQL File - $sql_file"

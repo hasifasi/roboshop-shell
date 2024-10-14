@@ -9,7 +9,7 @@ printHeading " Install Rabbitmq server"
 dnf install rabbitmq-server -y &>>$logFile
 statusCheck $?
 
-print_heading "Start RabbitMQ Service"
+printHeading "Start RabbitMQ Service"
 systemctl enable rabbitmq-server &>>$logFile
 systemctl start rabbitmq-server &>>$logFile
 statusCheck $?
