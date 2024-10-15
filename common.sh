@@ -53,6 +53,7 @@ systemSetup(){
 
   printHeading "Copy the Service files"
   cp $scriptsPath/$appName.service /etc/systemd/system/$appName.service &>>$logFile
+  sed -i -e "s/rabbitmqPassword/$rabbitmqPassword/" /etc/systemd/system/$appName.service &>>$logFile
   statusCheck $?
 
 
@@ -90,14 +91,14 @@ pythonSetup(){
 
   printHeading " Install python "
   dnf install python3 gcc python3-devel -y  &>>$logFile
-    statusCheck $?
+  statusCheck $?
 
 
   addPrerequisites
 
   printHeading "Download Application dependencies "
-  pip3 install -r requirements.txt
-    statusCheck $?
+  pip3 install -r requirements.txt  &>>$logFile
+  statusCheck $?
 
  systemSetup
 }

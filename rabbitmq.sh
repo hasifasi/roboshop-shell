@@ -1,6 +1,13 @@
 source common.sh
 appName=rabbitmq
 
+if [ -z "$1" ]; then
+  echo INput Rabbitmq Password is missing
+  exit 1
+fi
+
+RABBITMQ_PASSWORD=$1
+
 printHeading "Copy RabbitMQ Repo file"
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$logFile
 statusCheck $?
@@ -15,7 +22,9 @@ systemctl start rabbitmq-server &>>$logFile
 statusCheck $?
 
 printHeading " Add user and set permissions"
-rabbitmqctl add_user roboshop roboshop123 &>>$logFile
+rabbitmqctl add_user roboshop $RABBITMQ_PASSWORD &>>$logFile
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$logFile
 statusCheck $?
+
+#Note : This is the password == roboshop123
 

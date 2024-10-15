@@ -1,6 +1,12 @@
 source common.sh
 appName=shipping
 
+if [ -z "$1" ]; then
+  echo Input My sql Root password missing
+  exit 1
+fi
+
+MYSQL_ROOT_PASSWORD=$1
 
 mavenSetup
 
@@ -35,9 +41,11 @@ statusCheck $?
 
 for sql_file in schema app-user master-data; do
   printHeading "Load SQL File - $sql_file"
-  mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/$sql_file.sql
+  mysql -h mysql.waferhassan.online -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/$sql_file.sql
   statusCheck $?
 done
+
+#Note:Password is RoboShop@1
 #mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/app-user.sql
 #
 #mysql -h mysql.waferhassan.online -uroot -pRoboShop@1 < /app/db/master-data.sql

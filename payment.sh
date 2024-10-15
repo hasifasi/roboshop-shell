@@ -1,6 +1,14 @@
 source common.sh
 appName=payment
 
+
+if [ -z "$1" ]; then
+  echo Input Rabbitmq password missing
+  exit 1
+fi
+
+rabbitmqPassword=$1
+
 pythonSetup
 
 #=================== All code is moved as resuable function -->pythonSetup =============================
