@@ -9,6 +9,7 @@ RABBITMQ_PASSWORD=$1
 
 printHeading "Copy Dispatch Service file"
 cp dispatch.service  /etc/systemd/system/dispatch.service &>>$logFile
+sed -i -e "s/RABBITMQ_PASSWORD/$RABBITMQ_PASSWORD/" /etc/systemd/system/dispatch.service &>>$logFile
 statusCheck $?
 
 printHeading  "Install GoLang"
